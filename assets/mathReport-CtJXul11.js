@@ -1,11 +1,11 @@
-function Y(a, i, t) {
+function G(a, n, t) {
   switch (a) {
     case "zapata-aislada-validacion":
     case "zapata-aislada":
-      return V(i, t);
+      return I(n, t);
     case "plate-thick":
     case "plate-thick-validacion":
-      return Z(i, t);
+      return Z(n, t);
     case "plate-thin":
       return H();
     case "membrana-pstress":
@@ -17,107 +17,109 @@ function Y(a, i, t) {
                <b>plate-thick</b>, <b>plate-thin</b>, <b>membrana-pstress</b>.</p>` }];
   }
 }
-function P(a) {
-  const i = Math.max(0, Math.min(1, a));
-  let t = 0, e = 0, r = 0;
-  i < 0.25 ? (t = 0, e = 4 * i, r = 1) : i < 0.5 ? (t = 0, e = 1, r = 1 - 4 * (i - 0.25)) : i < 0.75 ? (t = 4 * (i - 0.5), e = 1, r = 0) : (t = 1, e = 1 - 4 * (i - 0.75), r = 0);
-  const p = (m) => Math.round(255 * m).toString(16).padStart(2, "0");
-  return `#${p(t)}${p(e)}${p(r)}`;
+function j(a) {
+  const n = Math.max(0, Math.min(1, a));
+  let t = 0, e = 0, l = 0;
+  n < 0.25 ? (t = 0, e = 4 * n, l = 1) : n < 0.5 ? (t = 0, e = 1, l = 1 - 4 * (n - 0.25)) : n < 0.75 ? (t = 4 * (n - 0.5), e = 1, l = 0) : (t = 1, e = 1 - 4 * (n - 0.75), l = 0);
+  const m = ($) => Math.round(255 * $).toString(16).padStart(2, "0");
+  return `#${m(t)}${m(e)}${m(l)}`;
 }
-function N(a, i, t, e, r, p, m, d = 420, $ = 280) {
-  if (!a.length) return `<p><i>No data for "${p}"</i></p>`;
-  const c = Math.min(...a.map((g) => g.v)), o = Math.max(...a.map((g) => g.v)), u = o - c || 1, n = 30, f = (d - 2 * n) / i, _ = ($ - 2 * n - 30) / t, b = Math.min(f, _), s = i * b, h = t * b, x = e, y = r, M = s / x, v = h / y;
-  let E = "";
-  for (let g = 0; g < y; g++) for (let z = 0; z < x; z++) {
-    const O = (z + 0.5) / x * i, X = (g + 0.5) / y * t;
-    let B = 0, L = 0;
-    for (const T of a) {
-      const S = (T.x - O) ** 2 + (T.y - X) ** 2;
-      if (S < 1e-10) {
-        L = T.v, B = 1;
+function w(a, n, t, e, l, m, $, x = 420, h = 280) {
+  if (!a.length) return `<p><i>No data for "${m}"</i></p>`;
+  const p = Math.min(...a.map((v) => v.v)), r = Math.max(...a.map((v) => v.v)), f = r - p || 1, o = 30, b = (x - 2 * o) / n, y = (h - 2 * o - 30) / t, u = Math.min(b, y), s = n * u, i = t * u, d = e, _ = l, M = s / d, k = i / _;
+  let z = "";
+  for (let v = 0; v < _; v++) for (let D = 0; D < d; D++) {
+    const O = (D + 0.5) / d * n, X = (v + 0.5) / _ * t;
+    let C = 0, N = 0;
+    for (const B of a) {
+      const K = (B.x - O) ** 2 + (B.y - X) ** 2;
+      if (K < 1e-10) {
+        N = B.v, C = 1;
         break;
       }
-      const C = 1 / S;
-      B += C, L += C * T.v;
+      const S = 1 / K;
+      C += S, N += S * B.v;
     }
-    const G = (L / B - c) / u, I = n + z * M, A = n + (y - 1 - g) * v;
-    E += `<rect x="${I.toFixed(1)}" y="${A.toFixed(1)}" width="${(M + 0.3).toFixed(1)}" height="${(v + 0.3).toFixed(1)}" fill="${P(G)}"/>`;
+    const A = (N / C - p) / f, Y = o + D * M, V = o + (_ - 1 - v) * k;
+    z += `<rect x="${Y.toFixed(1)}" y="${V.toFixed(1)}" width="${(M + 0.3).toFixed(1)}" height="${(k + 0.3).toFixed(1)}" fill="${j(A)}"/>`;
   }
-  const F = n + s + 10, w = h;
-  let l = "";
-  const q = 60;
-  for (let g = 0; g < q; g++) {
-    const z = 1 - g / (q - 1);
-    l += `<rect x="${F}" y="${n + g * w / q}" width="14" height="${(w / q + 0.5).toFixed(1)}" fill="${P(z)}"/>`;
+  const q = o + s + 10, F = i;
+  let c = "";
+  const P = 60;
+  for (let v = 0; v < P; v++) {
+    const D = 1 - v / (P - 1);
+    c += `<rect x="${q}" y="${o + v * F / P}" width="14" height="${(F / P + 0.5).toFixed(1)}" fill="${j(D)}"/>`;
   }
-  [`<text x="${F + 18}" y="${n + 8}" font-size="10" fill="#ddd">${o.toFixed(2)}</text>`, `<text x="${F + 18}" y="${n + w / 2 + 3}" font-size="10" fill="#ddd">${((c + o) / 2).toFixed(2)}</text>`, `<text x="${F + 18}" y="${n + w - 2}" font-size="10" fill="#ddd">${c.toFixed(2)}</text>`, `<text x="${F + 18}" y="${n + w + 14}" font-size="9" fill="#999" font-style="italic">${m}</text>`].join("");
+  [`<text x="${q + 18}" y="${o + 8}" font-size="10" fill="#ddd">${r.toFixed(2)}</text>`, `<text x="${q + 18}" y="${o + F / 2 + 3}" font-size="10" fill="#ddd">${((p + r) / 2).toFixed(2)}</text>`, `<text x="${q + 18}" y="${o + F - 2}" font-size="10" fill="#ddd">${p.toFixed(2)}</text>`, `<text x="${q + 18}" y="${o + F + 14}" font-size="9" fill="#999" font-style="italic">${$}</text>`].join("");
   const W = `
-    <text x="${n + s / 2}" y="${n + h + 20}" font-size="11" text-anchor="middle" fill="#ddd">x (m)</text>
-    <text x="${n - 18}" y="${n + h / 2}" font-size="11" text-anchor="middle" fill="#ddd" transform="rotate(-90 ${n - 18} ${n + h / 2})">y (m)</text>
-    <text x="${n}" y="${n - 8}" font-size="11" fill="#d4af37" font-weight="bold">${p}</text>
+    <text x="${o + s / 2}" y="${o + i + 20}" font-size="11" text-anchor="middle" fill="#ddd">x (m)</text>
+    <text x="${o - 18}" y="${o + i / 2}" font-size="11" text-anchor="middle" fill="#ddd" transform="rotate(-90 ${o - 18} ${o + i / 2})">y (m)</text>
+    <text x="${o}" y="${o - 8}" font-size="11" fill="#d4af37" font-weight="bold">${m}</text>
   `;
-  return `<svg width="${d}" height="${$}" style="background:#111;border:1px solid #333;border-radius:4px;">
-    ${E}
-    <rect x="${n}" y="${n}" width="${s}" height="${h}" fill="none" stroke="#666" stroke-width="1"/>
-    ${l}
+  return `<svg width="${x}" height="${h}" style="background:#111;border:1px solid #333;border-radius:4px;">
+    ${z}
+    <rect x="${o}" y="${o}" width="${s}" height="${i}" fill="none" stroke="#666" stroke-width="1"/>
+    ${c}
     ${W}
   </svg>`;
 }
-function D(a, i, t, e, r, p = 420, m = 180) {
+function g(a, n, t, e, l, m = 420, $ = 180) {
   if (!a.length) return "";
-  const d = Math.max(...t === "x" ? a.map((l) => l.y) : a.map((l) => l.x)), $ = d / 2, c = d * 0.15, o = a.filter((l) => t === "x" ? Math.abs(l.y - $) < c : Math.abs(l.x - $) < c).map((l) => ({ p: t === "x" ? l.x : l.y, v: l.v })).sort((l, q) => l.p - q.p);
-  if (o.length < 2) return "";
-  const u = Math.min(...o.map((l) => l.v)), n = Math.max(...o.map((l) => l.v)), f = Math.min(0, u), _ = Math.max(0, n), b = _ - f || 1, s = 40, h = p - 2 * s, x = m - 2 * s - 10, y = (l) => s + l / i * h, M = (l) => s + x - (l - f) / b * x, v = M(0);
-  let E = `${y(o[0].p).toFixed(1)},${v.toFixed(1)} `;
-  o.forEach((l) => E += `${y(l.p).toFixed(1)},${M(l.v).toFixed(1)} `), E += `${y(o[o.length - 1].p).toFixed(1)},${v.toFixed(1)}`;
-  const F = `
-    <text x="${s + h / 2}" y="${s + x + 22}" font-size="11" text-anchor="middle" fill="#ddd">${t === "x" ? "x" : "y"} (m) \u2014 cross-section at ${t === "x" ? "y" : "x"} = ${$.toFixed(2)}</text>
-    <text x="${s - 28}" y="${s + x / 2}" font-size="10" text-anchor="middle" fill="#ddd" transform="rotate(-90 ${s - 28} ${s + x / 2})">${r}</text>
+  const x = Math.max(...t === "x" ? a.map((c) => c.y) : a.map((c) => c.x)), h = x / 2, p = x * 0.15, r = a.filter((c) => t === "x" ? Math.abs(c.y - h) < p : Math.abs(c.x - h) < p).map((c) => ({ p: t === "x" ? c.x : c.y, v: c.v })).sort((c, P) => c.p - P.p);
+  if (r.length < 2) return "";
+  const f = Math.min(...r.map((c) => c.v)), o = Math.max(...r.map((c) => c.v)), b = Math.min(0, f), y = Math.max(0, o), u = y - b || 1, s = 40, i = m - 2 * s, d = $ - 2 * s - 10, _ = (c) => s + c / n * i, M = (c) => s + d - (c - b) / u * d, k = M(0);
+  let z = `${_(r[0].p).toFixed(1)},${k.toFixed(1)} `;
+  r.forEach((c) => z += `${_(c.p).toFixed(1)},${M(c.v).toFixed(1)} `), z += `${_(r[r.length - 1].p).toFixed(1)},${k.toFixed(1)}`;
+  const q = `
+    <text x="${s + i / 2}" y="${s + d + 22}" font-size="11" text-anchor="middle" fill="#ddd">${t === "x" ? "x" : "y"} (m) \u2014 cross-section at ${t === "x" ? "y" : "x"} = ${h.toFixed(2)}</text>
+    <text x="${s - 28}" y="${s + d / 2}" font-size="10" text-anchor="middle" fill="#ddd" transform="rotate(-90 ${s - 28} ${s + d / 2})">${l}</text>
     <text x="${s}" y="${s - 10}" font-size="11" fill="#d4af37" font-weight="bold">${e}</text>
-    <line x1="${s}" y1="${s + x}" x2="${s + h}" y2="${s + x}" stroke="#666" stroke-width="1"/>
-    <line x1="${s}" y1="${s}" x2="${s}" y2="${s + x}" stroke="#666" stroke-width="1"/>
-    <line x1="${s}" y1="${v.toFixed(1)}" x2="${s + h}" y2="${v.toFixed(1)}" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
-    <text x="${s + h + 3}" y="${(v + 3).toFixed(1)}" font-size="9" fill="#aaa">0 (undeformed)</text>
-    <text x="${s - 5}" y="${s + 5}" font-size="10" text-anchor="end" fill="#aaa">${_.toFixed(2)}</text>
-    <text x="${s - 5}" y="${s + x + 3}" font-size="10" text-anchor="end" fill="#aaa">${f.toFixed(2)}</text>
-  `, w = u < 0 ? "#e74c3c" : "#3498db";
-  return `<svg width="${p}" height="${m}" style="background:#111;border:1px solid #333;border-radius:4px;">
-    <polygon points="${E}" fill="${w}" fill-opacity="0.35" stroke="${w}" stroke-width="2"/>
-    ${o.map((l) => `<circle cx="${y(l.p).toFixed(1)}" cy="${M(l.v).toFixed(1)}" r="2.5" fill="#f39c12"/>`).join("")}
-    ${F}
+    <line x1="${s}" y1="${s + d}" x2="${s + i}" y2="${s + d}" stroke="#666" stroke-width="1"/>
+    <line x1="${s}" y1="${s}" x2="${s}" y2="${s + d}" stroke="#666" stroke-width="1"/>
+    <line x1="${s}" y1="${k.toFixed(1)}" x2="${s + i}" y2="${k.toFixed(1)}" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="${s + i + 3}" y="${(k + 3).toFixed(1)}" font-size="9" fill="#aaa">0 (undeformed)</text>
+    <text x="${s - 5}" y="${s + 5}" font-size="10" text-anchor="end" fill="#aaa">${y.toFixed(2)}</text>
+    <text x="${s - 5}" y="${s + d + 3}" font-size="10" text-anchor="end" fill="#aaa">${b.toFixed(2)}</text>
+  `, F = f < 0 ? "#e74c3c" : "#3498db";
+  return `<svg width="${m}" height="${$}" style="background:#111;border:1px solid #333;border-radius:4px;">
+    <polygon points="${z}" fill="${F}" fill-opacity="0.35" stroke="${F}" stroke-width="2"/>
+    ${r.map((c) => `<circle cx="${_(c.p).toFixed(1)}" cy="${M(c.v).toFixed(1)}" r="2.5" fill="#f39c12"/>`).join("")}
+    ${q}
   </svg>`;
 }
-function j(a, i) {
+function T(a, n, t = "pressure", e = false) {
   var _a, _b, _c, _d;
-  const t = (_b = (_a = i == null ? void 0 : i.analyzeOutputs) == null ? void 0 : _a.rawVal) == null ? void 0 : _b.pressure, e = (_c = i == null ? void 0 : i.nodes) == null ? void 0 : _c.rawVal, r = (_d = i == null ? void 0 : i.elements) == null ? void 0 : _d.rawVal;
-  if (!t || !e || !r) return [];
-  const p = /* @__PURE__ */ new Map();
-  r.forEach((d, $) => {
-    if (d.length !== 4) return;
-    const c = t.get($);
-    c && d.forEach((o, u) => {
-      const n = p.get(o) || { sum: 0, count: 0 };
-      n.sum += Math.abs(c[u] ?? 0), n.count += 1, p.set(o, n);
+  const l = (_b = (_a = n == null ? void 0 : n.analyzeOutputs) == null ? void 0 : _a.rawVal) == null ? void 0 : _b[t], m = (_c = n == null ? void 0 : n.nodes) == null ? void 0 : _c.rawVal, $ = (_d = n == null ? void 0 : n.elements) == null ? void 0 : _d.rawVal;
+  if (!l || !m || !$) return [];
+  const x = /* @__PURE__ */ new Map();
+  $.forEach((p, r) => {
+    if (p.length !== 4) return;
+    const f = l.get(r);
+    f && p.forEach((o, b) => {
+      const y = x.get(o) || { sum: 0, count: 0 }, u = f[b] ?? 0;
+      y.sum += e ? u : Math.abs(u), y.count += 1, x.set(o, y);
     });
   });
+  const h = [];
+  return x.forEach((p, r) => {
+    const f = m[r];
+    f && h.push({ x: f[0], y: f[1], v: p.count > 0 ? p.sum / p.count : 0 });
+  }), h;
+}
+function L(a, n, t = "main") {
+  var _a, _b, _c, _d, _e;
+  let e;
+  t === "main" ? e = (_b = (_a = n == null ? void 0 : n.deformOutputs) == null ? void 0 : _a.rawVal) == null ? void 0 : _b.deformations : e = (_d = (_c = n == null ? void 0 : n.analyzeOutputs) == null ? void 0 : _c.rawVal) == null ? void 0 : _d[t];
+  const l = (_e = n == null ? void 0 : n.nodes) == null ? void 0 : _e.rawVal;
+  if (!e || !l) return [];
   const m = [];
-  return p.forEach((d, $) => {
-    const c = e[$];
-    c && m.push({ x: c[0], y: c[1], v: d.count > 0 ? d.sum / d.count : 0 });
+  return e.forEach(($, x) => {
+    const h = l[x];
+    !h || h[2] !== 0 || m.push({ x: h[0], y: h[1], v: 1e3 * ($[2] ?? 0) });
   }), m;
 }
-function K(a, i) {
-  var _a, _b, _c;
-  const t = (_b = (_a = i == null ? void 0 : i.deformOutputs) == null ? void 0 : _a.rawVal) == null ? void 0 : _b.deformations, e = (_c = i == null ? void 0 : i.nodes) == null ? void 0 : _c.rawVal;
-  if (!t || !e) return [];
-  const r = [];
-  return t.forEach((p, m) => {
-    const d = e[m];
-    !d || d[2] !== 0 || r.push({ x: d[0], y: d[1], v: 1e3 * (p[2] ?? 0) });
-  }), r;
-}
-function V(a, i) {
-  const t = a.Lz ?? 1.5, e = a.Bz ?? 1.5, r = a.tz ?? 0.3, p = a.bc ?? 0.4, m = a.q_adm ?? 10, d = a.ks_factor ?? 10.5, $ = a.ks ?? 1030, c = a.P_simple ?? 20, o = a.Mx_simple ?? 0.5, u = a.My_simple ?? -0.5, n = 22800, f = 0.2, _ = n * 1e3 * Math.pow(r, 3) / (12 * (1 - f * f)), b = _ / ($ * Math.pow(t, 4)), s = b > 1 ? "RIGID" : "FLEXIBLE";
+function I(a, n) {
+  const t = a.Lz ?? 1.5, e = a.Bz ?? 1.5, l = a.tz ?? 0.3, m = a.bc ?? 0.4, $ = a.q_adm ?? 10, x = a.ks_factor ?? 10.5, h = a.ks ?? 1030, p = a.P_simple ?? 20, r = a.Mx_simple ?? 0.5, f = a.My_simple ?? -0.5, o = 22800, b = 0.2, y = o * 1e3 * Math.pow(l, 3) / (12 * (1 - b * b)), u = y / (h * Math.pow(t, 4)), s = u > 1 ? "RIGID" : "FLEXIBLE";
   return [{ title: "1. Theory \u2014 Thick plate (Mindlin-Reissner) on Winkler foundation", html: `
 <p>The isolated footing is modelled as a <b>Mindlin-Reissner plate</b>
 (Shell Thick) resting on a <b>Winkler foundation</b> (bed of independent
@@ -126,7 +128,7 @@ linear springs).</p>
 <p>Unlike Kirchhoff-Love (thin plate), Mindlin admits <b>transverse shear</b>
 deformation \u2014 valid for <span class="math">$t/L \\geq 0.05$</span>. In our footing:</p>
 
-<p class="math">$$\\frac{t}{L} = \\frac{${r.toFixed(2)}}{${t.toFixed(2)}} = ${(r / t).toFixed(3)} \\geq 0.05 \\Rightarrow \\text{Mindlin OK}$$</p>
+<p class="math">$$\\frac{t}{L} = \\frac{${l.toFixed(2)}}{${t.toFixed(2)}} = ${(l / t).toFixed(3)} \\geq 0.05 \\Rightarrow \\text{Mindlin OK}$$</p>
 
 <p>Each node has <b>3 DOFs</b>: <span class="math">$w$</span> (vertical deflection),
 <span class="math">$\\theta_x$</span> (rotation about X),
@@ -136,27 +138,27 @@ deformation \u2014 valid for <span class="math">$t/L \\geq 0.05$</span>. In our 
 <tr><th>Parameter</th><th>Symbol</th><th>Value</th><th>Unit</th></tr>
 <tr><td>Length X</td><td class="math">$L_z$</td><td>${t.toFixed(2)}</td><td>m</td></tr>
 <tr><td>Length Y</td><td class="math">$B_z$</td><td>${e.toFixed(2)}</td><td>m</td></tr>
-<tr><td>Thickness</td><td class="math">$t$</td><td>${r.toFixed(2)}</td><td>m</td></tr>
-<tr><td>Column side</td><td class="math">$b_c$</td><td>${p.toFixed(2)}</td><td>m</td></tr>
-<tr><td>Elastic modulus</td><td class="math">$E_c$</td><td>${n.toLocaleString()}</td><td>MPa</td></tr>
-<tr><td>Poisson ratio</td><td class="math">$\\nu$</td><td>${f}</td><td>\u2014</td></tr>
+<tr><td>Thickness</td><td class="math">$t$</td><td>${l.toFixed(2)}</td><td>m</td></tr>
+<tr><td>Column side</td><td class="math">$b_c$</td><td>${m.toFixed(2)}</td><td>m</td></tr>
+<tr><td>Elastic modulus</td><td class="math">$E_c$</td><td>${o.toLocaleString()}</td><td>MPa</td></tr>
+<tr><td>Poisson ratio</td><td class="math">$\\nu$</td><td>${b}</td><td>\u2014</td></tr>
 </table>
 
 <p>Plate flexural rigidity:</p>
 
-<p class="math">$$D = \\frac{E \\cdot t^3}{12(1-\\nu^2)} = \\frac{${(n * 1e3).toLocaleString()} \\cdot ${r.toFixed(2)}^3}{12(1-${f}^2)} = ${_.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
+<p class="math">$$D = \\frac{E \\cdot t^3}{12(1-\\nu^2)} = \\frac{${(o * 1e3).toLocaleString()} \\cdot ${l.toFixed(2)}^3}{12(1-${b}^2)} = ${y.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
       ` }, { title: "3. Winkler subgrade", html: `
 <p>The modulus of subgrade reaction <span class="math">$k_s$</span> is estimated
 via the Bowles correlation from the allowable pressure:</p>
 
-<p class="math">$$k_s = k_{factor} \\cdot q_{adm} \\cdot g = ${d} \\cdot ${m} \\cdot 9.807 = ${$.toFixed(0)} \\ \\text{kN/m}^3$$</p>
+<p class="math">$$k_s = k_{factor} \\cdot q_{adm} \\cdot g = ${x} \\cdot ${$} \\cdot 9.807 = ${h.toFixed(0)} \\ \\text{kN/m}^3$$</p>
 
 <p><b>Biot number</b> \u2014 relative plate/soil stiffness:</p>
 
-<p class="math">$$k_r = \\frac{D}{k_s \\cdot L^4} = \\frac{${_.toFixed(0)}}{${$.toFixed(0)} \\cdot ${t.toFixed(2)}^4} = ${b.toFixed(3)}$$</p>
+<p class="math">$$k_r = \\frac{D}{k_s \\cdot L^4} = \\frac{${y.toFixed(0)}}{${h.toFixed(0)} \\cdot ${t.toFixed(2)}^4} = ${u.toFixed(3)}$$</p>
 
-<p>Since <span class="math">$k_r = ${b.toFixed(2)}$</span> \u21D2 plate is
-<b>${s}</b> ${b > 1 ? "\u2014 FEM should converge to the Meyerhof rigid method" : "\u2014 FEM will concentrate pressure under the column"}.</p>
+<p>Since <span class="math">$k_r = ${u.toFixed(2)}$</span> \u21D2 plate is
+<b>${s}</b> ${u > 1 ? "\u2014 FEM should converge to the Meyerhof rigid method" : "\u2014 FEM will concentrate pressure under the column"}.</p>
       ` }, { title: "4. Bilinear Q4 shape functions", html: `
 <p>Natural coordinates <span class="math">$(\\xi, \\eta) \\in [-1, +1]$</span>:</p>
 <p class="math">$$N_1(\\xi,\\eta) = \\frac{(1-\\xi)(1-\\eta)}{4} \\qquad N_2(\\xi,\\eta) = \\frac{(1+\\xi)(1-\\eta)}{4}$$</p>
@@ -211,7 +213,7 @@ Winkler springs. With <span class="math">$n_j$</span> nodes and 3 DOFs/node,
 the system size is <span class="math">$3 n_j \\times 3 n_j$</span>.</p>
 
 <p>Load vector \u2014 only at the column (center) node:</p>
-<p class="math">$$F_{w,col} = -P = -${c.toFixed(2)} \\ \\text{tonf} \\qquad F_{\\theta_x,col} = M_x = ${o.toFixed(2)} \\qquad F_{\\theta_y,col} = M_y = ${u.toFixed(2)}$$</p>
+<p class="math">$$F_{w,col} = -P = -${p.toFixed(2)} \\ \\text{tonf} \\qquad F_{\\theta_x,col} = M_x = ${r.toFixed(2)} \\qquad F_{\\theta_y,col} = M_y = ${f.toFixed(2)}$$</p>
 
 <p>Solve with <b>Cholesky</b> (K is symmetric positive-definite thanks to Winkler):</p>
 <p class="math">$$\\mathbf{K} \\cdot \\mathbf{Z} = \\mathbf{F} \\quad \\Longrightarrow \\quad \\mathbf{Z} = \\mathbf{K}^{-1} \\mathbf{F}$$</p>
@@ -219,39 +221,133 @@ the system size is <span class="math">$3 n_j \\times 3 n_j$</span>.</p>
 <p>By the Winkler law <span class="math">$\\sigma = -k_s \\cdot w$</span>
 (compression positive):</p>
 
-<p class="math">$$\\sigma_{max}^{FEM} \\leq q_{adm} = ${m.toFixed(1)} \\ \\text{tonf/m}^2 \\qquad \\text{(NEC-SE-GC)}$$</p>
+<p class="math">$$\\sigma_{max}^{FEM} \\leq q_{adm} = ${$.toFixed(1)} \\ \\text{tonf/m}^2 \\qquad \\text{(NEC-SE-GC)}$$</p>
 
 <p><b>Comparison with rigid Meyerhof</b> (classical method):</p>
 
 <p class="math">$$\\sigma_{max}^{rigid} = \\frac{P}{A} + \\frac{|M_x|}{W_x} + \\frac{|M_y|}{W_y}$$</p>
 
-<p class="math">$$= \\frac{${c.toFixed(2)}}{${(t * e).toFixed(3)}} + \\frac{${Math.abs(o).toFixed(2)}}{${(t * e * e / 6).toFixed(3)}} + \\frac{${Math.abs(u).toFixed(2)}}{${(e * t * t / 6).toFixed(3)}} = ${(c / (t * e) + Math.abs(o) / (t * e * e / 6) + Math.abs(u) / (e * t * t / 6)).toFixed(2)} \\ \\text{tonf/m}^2$$</p>
+<p class="math">$$= \\frac{${p.toFixed(2)}}{${(t * e).toFixed(3)}} + \\frac{${Math.abs(r).toFixed(2)}}{${(t * e * e / 6).toFixed(3)}} + \\frac{${Math.abs(f).toFixed(2)}}{${(e * t * t / 6).toFixed(3)}} = ${(p / (t * e) + Math.abs(r) / (t * e * e / 6) + Math.abs(f) / (e * t * t / 6)).toFixed(2)} \\ \\text{tonf/m}^2$$</p>
 
-<p>With <span class="math">$k_r = ${b.toFixed(2)}$</span> (${s}),
-the FEM result should be ${b > 1 ? "close to" : "larger (concentration) than"} the rigid value.</p>
-      ` }, { title: "11. Plan view color map \u2014 contact pressure \u03C3 (tonf/m\xB2)", html: (() => {
-    const h = j(a, i);
-    return h.length ? `
+<p>With <span class="math">$k_r = ${u.toFixed(2)}$</span> (${s}),
+the FEM result should be ${u > 1 ? "close to" : "larger (concentration) than"} the rigid value.</p>
+      ` }, { title: "11. Plan view color map \u2014 contact pressure \u03C3 (tonf/m\xB2, combined)", html: (() => {
+    const i = T(a, n, "pressure");
+    return i.length ? `
 <p>2D plan view (top-down) of the contact pressure distribution at the plate-soil
-interface. Colors follow the jet palette: <span style="color:#0000ff">blue</span>
-(minimum compression, edge) \u2192 <span style="color:#00ff00">green</span> \u2192
-<span style="color:#ff0000">red</span> (maximum compression, under column):</p>
+interface under the <b>combined</b> load (P + M<sub>x</sub> + M<sub>y</sub>).
+Colors follow the jet palette: <span style="color:#0000ff">blue</span>
+(minimum compression) \u2192 <span style="color:#ff0000">red</span>
+(maximum compression):</p>
 <div style="text-align:center; margin: 10px 0;">
-${N(h, t, e, 40, 40, "\u03C3 plan view (tonf/m\xB2)", "tonf/m\xB2", 480, 340)}
+${w(i, t, e, 40, 40, "\u03C3 combined (tonf/m\xB2)", "tonf/m\xB2", 480, 340)}
 </div>
 <p><b>Interpretation</b>: with
-<span class="math">$k_r = ${b.toFixed(2)}$</span> (${s}), the plate
-${b > 1 ? "behaves rigidly \u2014 the plan distribution is nearly linear (Meyerhof)" : "is flexible \u2014 pressure concentrates under the column"}.</p>
+<span class="math">$k_r = ${u.toFixed(2)}$</span> (${s}), the plate
+${u > 1 ? "behaves rigidly \u2014 the plan distribution is nearly linear (Meyerhof)" : "is flexible \u2014 pressure concentrates under the column"}.</p>
         ` : "<p><i>No pressure data available. Run the analysis by adjusting any parameter to trigger a rebuild.</i></p>";
-  })() }, { title: "12. Lateral elevations \u2014 X and Y cross-sections", html: (() => {
-    const h = j(a, i);
-    return h.length ? `
-<p>Cross-section of the contact pressure along the central line:</p>
+  })() }, { title: "11a. Load-case decomposition \u2014 \u03C3 and w by P only (axial)", html: (() => {
+    const i = T(a, n, "pressure_P"), d = L(a, n, "deform_P");
+    if (!i.length) return "<p><i>P-only pressure not computed. Adjust any parameter to rebuild.</i></p>";
+    const _ = d.length ? Math.min(...d.map((M) => M.v)) : 0;
+    return `
+<p>Response when <b>only the axial load</b>
+<span class="math">$P = ${p.toFixed(2)}$</span> tonf is applied
+(<span class="math">$M_x = M_y = 0$</span>). The distribution is symmetric
+about both axes. For a rigid plate this would be uniform
+<span class="math">$P/A$</span>; for a flexible plate the pressure
+concentrates under the column (nodal point load):</p>
+
+<h4 style="color:#d4af37; margin-top:14px;">Contact pressure \u03C3</h4>
 <div style="text-align:center; margin: 10px 0;">
-${D(h, t, "x", "\u03C3 along X (through column)", "tonf/m\xB2", 460, 200)}
+${w(i, t, e, 40, 40, "\u03C3 by P only (tonf/m\xB2)", "tonf/m\xB2", 480, 340)}
 </div>
 <div style="text-align:center; margin: 10px 0;">
-${D(h, e, "y", "\u03C3 along Y (through column)", "tonf/m\xB2", 460, 200)}
+${g(i, t, "x", "\u03C3(P) along X", "tonf/m\xB2", 460, 200)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(i, e, "y", "\u03C3(P) along Y", "tonf/m\xB2", 460, 200)}
+</div>
+<p>Theoretical mean (rigid): <span class="math">$\\sigma = P/A = ${(p / (t * e)).toFixed(2)}$</span> tonf/m\xB2.</p>
+
+${d.length ? `
+<h4 style="color:#d4af37; margin-top:14px;">Vertical deflection w (mm, signed \u2014 negative = down)</h4>
+<div style="text-align:center; margin: 10px 0;">
+${w(d, t, e, 40, 40, "w by P only (mm)", "mm", 480, 340)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(d, t, "x", "w(P) along X \u2014 mm, signed", "mm", 460, 200)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(d, e, "y", "w(P) along Y \u2014 mm, signed", "mm", 460, 200)}
+</div>
+<p>Minimum (most downward): <span class="math">$w_{min}^{P} = ${_.toFixed(3)}$</span> mm
+at the column centre. With the linearity of Winkler soil,
+<span class="math">$\\sigma = -k_s \\cdot w$</span>, so the pressure peak
+coincides with the w-minimum.</p>` : ""}
+        `;
+  })() }, { title: "11b. Load-case decomposition \u2014 \u03C3 and w by M_x only", html: (() => {
+    const i = T(a, n, "pressure_Mx", true), d = L(a, n, "deform_Mx");
+    return i.length ? `
+<p>Response when <b>only M<sub>x</sub></b> =
+<span class="math">$${r.toFixed(2)}$</span> tonf\xB7m is applied
+(<span class="math">$P = M_y = 0$</span>). Anti-symmetric about the
+<span class="math">$y = B/2$</span> line \u2014 net vertical force is zero:</p>
+
+<h4 style="color:#d4af37; margin-top:14px;">Contact pressure \u03C3</h4>
+<div style="text-align:center; margin: 10px 0;">
+${w(i, t, e, 40, 40, "\u03C3 by Mx only (tonf/m\xB2, signed)", "tonf/m\xB2", 480, 340)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(i, e, "y", "\u03C3(Mx) along Y \u2014 anti-symmetric", "tonf/m\xB2", 460, 200)}
+</div>
+
+${d.length ? `
+<h4 style="color:#d4af37; margin-top:14px;">Vertical deflection w (mm, signed)</h4>
+<div style="text-align:center; margin: 10px 0;">
+${w(d, t, e, 40, 40, "w by Mx only (mm)", "mm", 480, 340)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(d, e, "y", "w(Mx) along Y \u2014 anti-symmetric", "mm", 460, 200)}
+</div>` : ""}
+        ` : "<p><i>M<sub>x</sub>-only pressure not computed.</i></p>";
+  })() }, { title: "11c. Load-case decomposition \u2014 \u03C3 and w by M_y only", html: (() => {
+    const i = T(a, n, "pressure_My", true), d = L(a, n, "deform_My");
+    return i.length ? `
+<p>Response when <b>only M<sub>y</sub></b> =
+<span class="math">$${f.toFixed(2)}$</span> tonf\xB7m is applied
+(<span class="math">$P = M_x = 0$</span>). Anti-symmetric about the
+<span class="math">$x = L/2$</span> line:</p>
+
+<h4 style="color:#d4af37; margin-top:14px;">Contact pressure \u03C3</h4>
+<div style="text-align:center; margin: 10px 0;">
+${w(i, t, e, 40, 40, "\u03C3 by My only (tonf/m\xB2, signed)", "tonf/m\xB2", 480, 340)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(i, t, "x", "\u03C3(My) along X \u2014 anti-symmetric", "tonf/m\xB2", 460, 200)}
+</div>
+
+${d.length ? `
+<h4 style="color:#d4af37; margin-top:14px;">Vertical deflection w (mm, signed)</h4>
+<div style="text-align:center; margin: 10px 0;">
+${w(d, t, e, 40, 40, "w by My only (mm)", "mm", 480, 340)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(d, t, "x", "w(My) along X \u2014 anti-symmetric", "mm", 460, 200)}
+</div>` : ""}
+
+<p>By <b>linearity</b>, the combined map (section 11) equals the sum of the three
+individual contributions: <span class="math">$\\sigma_{total} = \\sigma_P + \\sigma_{M_x} + \\sigma_{M_y}$</span>.</p>
+        ` : "<p><i>M<sub>y</sub>-only pressure not computed.</i></p>";
+  })() }, { title: "12. Lateral elevations \u2014 X and Y cross-sections", html: (() => {
+    const i = T(a, n);
+    return i.length ? `
+<p>Cross-section of the contact pressure along the central line:</p>
+<div style="text-align:center; margin: 10px 0;">
+${g(i, t, "x", "\u03C3 along X (through column)", "tonf/m\xB2", 460, 200)}
+</div>
+<div style="text-align:center; margin: 10px 0;">
+${g(i, e, "y", "\u03C3 along Y (through column)", "tonf/m\xB2", 460, 200)}
 </div>
 <p>Peak (dark blue fill) should coincide with the <b>column center</b>
 (<span class="math">$x = L/2, y = B/2$</span>); the <b>edges</b> should
@@ -259,9 +355,9 @@ show the Meyerhof linear gradient if k<sub>r</sub> \u226B 1, or be close to zero
 if the plate is flexible.</p>
         ` : "<p><i>No cross-section data available.</i></p>";
   })() }, { title: "13. Vertical deflection w (mm, signed)", html: (() => {
-    const h = K(a, i);
-    if (!h.length) return "<p><i>No deflection data available.</i></p>";
-    const x = Math.min(...h.map((y) => y.v));
+    const i = L(a, n);
+    if (!i.length) return "<p><i>No deflection data available.</i></p>";
+    const d = Math.min(...i.map((_) => _.v));
     return `
 <p>Plan view of the vertical deflection <span class="math">$w$</span>
 in mm using the FEM sign convention (<b>negative = downward</b>, global Z
@@ -270,20 +366,20 @@ points upward). The Winkler law
 to the pressure map above \u2014 where w is most negative, the compression \u03C3 is
 maximum (hence positive in the pressure plot).</p>
 <div style="text-align:center; margin: 10px 0;">
-${N(h, t, e, 40, 40, "w plan view (mm, signed)", "mm", 480, 340)}
+${w(i, t, e, 40, 40, "w plan view (mm, signed)", "mm", 480, 340)}
 </div>
-<p>Minimum (most downward): <span class="math">$w_{min} = ${x.toFixed(3)}$</span> mm (at the column)</p>
+<p>Minimum (most downward): <span class="math">$w_{min} = ${d.toFixed(3)}$</span> mm (at the column)</p>
 <div style="text-align:center; margin: 10px 0;">
-${D(h, t, "x", "w along X (mm, signed)", "mm", 460, 200)}
+${g(i, t, "x", "w along X (mm, signed)", "mm", 460, 200)}
 </div>
 <div style="text-align:center; margin: 10px 0;">
-${D(h, e, "y", "w along Y (mm, signed)", "mm", 460, 200)}
+${g(i, e, "y", "w along Y (mm, signed)", "mm", 460, 200)}
 </div>
         `;
   })() }];
 }
-function Z(a, i) {
-  const t = a.a ?? 6, e = a.b ?? 4, r = a.t ?? 0.1, p = a.q ?? 10, m = a.E_MPa ?? 35e3, d = a.nu ?? 0.15, $ = m * 1e3, c = $ / (2 * (1 + d)), o = $ * Math.pow(r, 3) / (12 * (1 - d * d)), u = 772e-5, n = u * p * Math.pow(e, 4) / o * 1e3;
+function Z(a, n) {
+  const t = a.a ?? 6, e = a.b ?? 4, l = a.t ?? 0.1, m = a.q ?? 10, $ = a.E_MPa ?? 35e3, x = a.nu ?? 0.15, h = $ * 1e3, p = h / (2 * (1 + x)), r = h * Math.pow(l, 3) / (12 * (1 - x * x)), f = 772e-5, o = f * m * Math.pow(e, 4) / r * 1e3;
   return [{ title: "1. Theory \u2014 Mindlin-Reissner thick plate", html: `
 <p>The rectangular slab is modelled as a <b>Mindlin-Reissner plate</b>
 (Shell Thick), simply supported along all four edges and subjected to a
@@ -292,7 +388,7 @@ uniform distributed load <span class="math">$q$</span>.</p>
 <p>Mindlin theory admits transverse shear deformation and is valid for
 <span class="math">$t/L \\geq 0.05$</span>. In this case:</p>
 
-<p class="math">$$\\frac{t}{L_{min}} = \\frac{${r.toFixed(3)}}{${Math.min(t, e).toFixed(1)}} = ${(r / Math.min(t, e)).toFixed(4)}$$</p>
+<p class="math">$$\\frac{t}{L_{min}} = \\frac{${l.toFixed(3)}}{${Math.min(t, e).toFixed(1)}} = ${(l / Math.min(t, e)).toFixed(4)}$$</p>
 
 <p>Each node has <b>3 DOFs</b>: <span class="math">$w, \\theta_x, \\theta_y$</span>
 (= 12 DOFs per element).</p>
@@ -301,16 +397,16 @@ uniform distributed load <span class="math">$q$</span>.</p>
 <tr><th>Parameter</th><th>Symbol</th><th>Value</th><th>Unit</th></tr>
 <tr><td>Length X</td><td class="math">$a$</td><td>${t.toFixed(1)}</td><td>m</td></tr>
 <tr><td>Length Y</td><td class="math">$b$</td><td>${e.toFixed(1)}</td><td>m</td></tr>
-<tr><td>Thickness</td><td class="math">$t$</td><td>${r.toFixed(3)}</td><td>m</td></tr>
-<tr><td>Uniform load</td><td class="math">$q$</td><td>${p.toFixed(1)}</td><td>kN/m\xB2</td></tr>
-<tr><td>Elastic modulus</td><td class="math">$E$</td><td>${m.toLocaleString()}</td><td>MPa</td></tr>
-<tr><td>Poisson</td><td class="math">$\\nu$</td><td>${d.toFixed(2)}</td><td>\u2014</td></tr>
-<tr><td>Shear modulus</td><td class="math">$G$</td><td>${(c / 1e3).toFixed(0)}</td><td>MPa</td></tr>
+<tr><td>Thickness</td><td class="math">$t$</td><td>${l.toFixed(3)}</td><td>m</td></tr>
+<tr><td>Uniform load</td><td class="math">$q$</td><td>${m.toFixed(1)}</td><td>kN/m\xB2</td></tr>
+<tr><td>Elastic modulus</td><td class="math">$E$</td><td>${$.toLocaleString()}</td><td>MPa</td></tr>
+<tr><td>Poisson</td><td class="math">$\\nu$</td><td>${x.toFixed(2)}</td><td>\u2014</td></tr>
+<tr><td>Shear modulus</td><td class="math">$G$</td><td>${(p / 1e3).toFixed(0)}</td><td>MPa</td></tr>
 <tr><td>Shear correction</td><td class="math">$\\kappa_s$</td><td>5/6</td><td>\u2014</td></tr>
 </table>
 
 <p>Flexural rigidity:</p>
-<p class="math">$$D = \\frac{E t^3}{12(1-\\nu^2)} = \\frac{${$.toLocaleString()} \\cdot ${r.toFixed(3)}^3}{12(1-${d}^2)} = ${o.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
+<p class="math">$$D = \\frac{E t^3}{12(1-\\nu^2)} = \\frac{${h.toLocaleString()} \\cdot ${l.toFixed(3)}^3}{12(1-${x}^2)} = ${r.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
       ` }, { title: "3. Bilinear Q4 shape functions", html: `
 <p>Natural coordinates <span class="math">$(\\xi, \\eta) \\in [-1, +1]$</span>:</p>
 <p class="math">$$N_i(\\xi,\\eta) = \\tfrac{1}{4}(1 + \\xi_i \\xi)(1 + \\eta_i \\eta), \\quad i=1,\\dots,4$$</p>
@@ -363,7 +459,7 @@ the corresponding DOFs:</p>
 <p><b>Kirchhoff analytical benchmark</b> (Navier series, simply supported
 plate with uniform load, <span class="math">$a/b = ${(t / e).toFixed(2)}$</span>):</p>
 
-<p class="math">$$w_{max}^{Kirchhoff} \\approx \\alpha \\cdot \\frac{q \\cdot b^4}{D} = ${u} \\cdot \\frac{${p} \\cdot ${e.toFixed(1)}^4}{${o.toFixed(1)}} = ${(n / 1e3).toFixed(6)} \\ \\text{m} = ${n.toFixed(2)} \\ \\text{mm}$$</p>
+<p class="math">$$w_{max}^{Kirchhoff} \\approx \\alpha \\cdot \\frac{q \\cdot b^4}{D} = ${f} \\cdot \\frac{${m} \\cdot ${e.toFixed(1)}^4}{${r.toFixed(1)}} = ${(o / 1e3).toFixed(6)} \\ \\text{m} = ${o.toFixed(2)} \\ \\text{mm}$$</p>
 
 <p>Mindlin should give a <b>slightly larger</b> deflection than Kirchhoff
 because it includes shear deformation energy. The difference grows with
@@ -380,85 +476,85 @@ recovered from the bending strain matrix:</p>
 <p>The transverse shear forces are similarly recovered:</p>
 <p class="math">$$\\begin{bmatrix} Q_x \\\\ Q_y \\end{bmatrix} = \\mathbf{D}_s \\cdot \\mathbf{B}_s \\cdot \\mathbf{Z}_e$$</p>
       ` }, { title: "11. Plan view color map \u2014 deflection w (mm, signed)", html: (() => {
-    const f = K(a, i);
-    return f.length ? `
+    const b = L(a, n);
+    return b.length ? `
 <p>2D plan view (top-down) of the vertical deflection
 <span class="math">$w$</span> in mm using the FEM sign convention
 (<b>negative = downward</b>). The minimum (most negative) value
-<span class="math">$w_{min} = ${Math.min(...f.map((b) => b.v)).toFixed(3)}$</span> mm should occur
+<span class="math">$w_{min} = ${Math.min(...b.map((u) => u.v)).toFixed(3)}$</span> mm should occur
 at the plate center for a simply supported plate under uniform pressure:</p>
 <div style="text-align:center; margin: 10px 0;">
-${N(f, t, e, 50, 30, "w plan view (mm, signed)", "mm", 520, 340)}
+${w(b, t, e, 50, 30, "w plan view (mm, signed)", "mm", 520, 340)}
 </div>
 <p><b>Analytical benchmark</b> (Kirchhoff Navier):
-<span class="math">$w_{max}^{downward} \\approx ${n.toFixed(3)}$</span> mm,
-so FEM should give <span class="math">$w_{min}^{FEM} \\approx -${n.toFixed(3)}$</span> mm.
+<span class="math">$w_{max}^{downward} \\approx ${o.toFixed(3)}$</span> mm,
+so FEM should give <span class="math">$w_{min}^{FEM} \\approx -${o.toFixed(3)}$</span> mm.
 Mindlin typically gives slightly larger magnitude due to shear deformation.</p>
         ` : "<p><i>No deflection data. Adjust any parameter to rebuild.</i></p>";
   })() }, { title: "12. Lateral elevations \u2014 X and Y cross-sections (w signed)", html: (() => {
-    const f = K(a, i);
-    return f.length ? `
+    const b = L(a, n);
+    return b.length ? `
 <p>Cross-section of the vertical deflection along the central axes.
 With downward load, the curve should <b>dip below zero</b> (negative
 values) at the center and return to 0 at the simply supported edges:</p>
 <div style="text-align:center; margin: 10px 0;">
-${D(f, t, "x", "w along X (through y = b/2) \u2014 mm, signed", "mm", 500, 220)}
+${g(b, t, "x", "w along X (through y = b/2) \u2014 mm, signed", "mm", 500, 220)}
 </div>
 <div style="text-align:center; margin: 10px 0;">
-${D(f, e, "y", "w along Y (through x = a/2) \u2014 mm, signed", "mm", 500, 220)}
+${g(b, e, "y", "w along Y (through x = a/2) \u2014 mm, signed", "mm", 500, 220)}
 </div>
         ` : "<p><i>No cross-section data.</i></p>";
   })() }];
 }
-function H(a, i) {
+function H(a, n) {
   return [{ title: "Kirchhoff-Love thin plate", html: `<p>16 DOFs per element (w, \u03B8<sub>x</sub>, \u03B8<sub>y</sub>, \u03C8 per node).
     <span class="math">$\\mathbf{K}_e = \\int\\!\\int \\mathbf{B}^T \\mathbf{D} \\mathbf{B} \\, dA$</span>
     with <span class="math">$\\mathbf{B}$</span> built from 2nd derivatives of
     Hermite shape functions. <i>Full report coming soon.</i></p>` }];
 }
-function Q(a, i) {
+function Q(a, n) {
   return [{ title: "Plane stress membrane", html: `<p>8 DOFs per element (<span class="math">$u_i, v_i$</span> at each of 4 nodes).
     <span class="math">$\\mathbf{D}_m = \\frac{E}{1-\\nu^2}[\\dots]$</span>.
     <i>Full report coming soon.</i></p>` }];
 }
-let k = null, R = false;
+let E = null, R = false;
 async function U() {
   if (R) return;
   const a = document.createElement("link");
-  a.rel = "stylesheet", a.href = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css", document.head.appendChild(a), await new Promise((i, t) => {
+  a.rel = "stylesheet", a.href = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css", document.head.appendChild(a), await new Promise((n, t) => {
     const e = document.createElement("script");
-    e.src = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js", e.onload = () => i(), e.onerror = () => t(), document.head.appendChild(e);
-  }), await new Promise((i, t) => {
+    e.src = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js", e.onload = () => n(), e.onerror = () => t(), document.head.appendChild(e);
+  }), await new Promise((n, t) => {
     const e = document.createElement("script");
-    e.src = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js", e.onload = () => i(), e.onerror = () => t(), document.head.appendChild(e);
+    e.src = "https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js", e.onload = () => n(), e.onerror = () => t(), document.head.appendChild(e);
   }), R = true;
 }
-async function tt(a, i, t, e) {
-  await U(), k && k.remove();
-  const r = Y(a, t, e);
-  k = document.createElement("div"), k.id = "math-report-panel", k.innerHTML = `
+async function tt(a, n, t, e) {
+  await U(), E && E.remove();
+  const l = G(a, t, e);
+  E = document.createElement("div"), E.id = "math-report-panel", E.innerHTML = `
     <div class="mr-backdrop" id="mr-backdrop"></div>
     <div class="mr-panel">
       <div class="mr-header">
         <h2>\u{1F4D0} FEM Mathematical Report</h2>
-        <div class="mr-subtitle">${i}</div>
+        <div class="mr-subtitle">${n}</div>
         <button class="mr-close" id="mr-close" title="Close">\u2715</button>
       </div>
       <div class="mr-nav">
-        ${r.map((c, o) => `<a href="#mr-sec-${o}" class="mr-nav-link">${o + 1}. ${c.title}</a>`).join("")}
+        ${l.map((p, r) => `<a href="#mr-sec-${r}" class="mr-nav-link">${r + 1}. ${p.title}</a>`).join("")}
       </div>
       <div class="mr-body" id="mr-body">
-        ${r.map((c, o) => `
-          <section id="mr-sec-${o}" class="mr-section">
-            <h3>${o + 1}. ${c.title}</h3>
-            ${c.html}
+        ${l.map((p, r) => `
+          <section id="mr-sec-${r}" class="mr-section">
+            <h3>${r + 1}. ${p.title}</h3>
+            ${p.html}
           </section>
         `).join("")}
       </div>
     </div>
   `;
-  const p = document.createElement("style");
-  p.id = "math-report-styles", p.textContent = `
+  const m = document.createElement("style");
+  m.id = "math-report-styles", m.textContent = `
     #math-report-panel { font-family: "Segoe UI", Roboto, sans-serif; color: #e8e8e8; }
     .mr-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.55); backdrop-filter: blur(3px); z-index: 9998; }
     .mr-panel { position: fixed; top: 3%; right: 2%; bottom: 3%; width: 54%; max-width: 900px;
@@ -495,17 +591,17 @@ async function tt(a, i, t, e) {
     .data-tbl th { background: rgba(212,175,55,0.12); color: #d4af37; font-weight: 600; }
     .data-tbl td:first-child { color: #bbb; }
     @media (max-width: 1100px) { .mr-panel { width: 90%; right: 5%; } }
-  `, document.head.appendChild(p), document.body.appendChild(k);
-  const m = () => {
-    k == null ? void 0 : k.remove(), p.remove(), k = null;
+  `, document.head.appendChild(m), document.body.appendChild(E);
+  const $ = () => {
+    E == null ? void 0 : E.remove(), m.remove(), E = null;
   };
-  document.getElementById("mr-close").onclick = m, document.getElementById("mr-backdrop").onclick = m, window.addEventListener("keydown", function c(o) {
-    o.key === "Escape" && (m(), window.removeEventListener("keydown", c));
+  document.getElementById("mr-close").onclick = $, document.getElementById("mr-backdrop").onclick = $, window.addEventListener("keydown", function p(r) {
+    r.key === "Escape" && ($(), window.removeEventListener("keydown", p));
   });
-  const d = document.getElementById("mr-body"), $ = window.renderMathInElement;
-  $ && $(d, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+  const x = document.getElementById("mr-body"), h = window.renderMathInElement;
+  h && h(x, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
 }
 export {
-  Y as buildMathReport,
+  G as buildMathReport,
   tt as openMathReport
 };

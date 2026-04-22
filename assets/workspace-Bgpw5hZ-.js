@@ -4,7 +4,7 @@ import { v as S, P as J } from "./theme-CzzIlc4y.js";
 import { g as Q } from "./getViewer-DXzw4WPM.js";
 import { g as W } from "./styles-Z6stOm1O.js";
 import { c as tt } from "./renderModalTable-29W4CuGz.js";
-import { e as R, a as et, __tla as __tla_1 } from "./exampleRegistry-CN-8ZedS.js";
+import { e as R, a as et, __tla as __tla_1 } from "./exampleRegistry-le-M_Egm.js";
 import { d as V, f as F } from "./units-CVPhvG5E.js";
 import "./Text-CBH-tcJP.js";
 import "./analyze-ClLKGn9k.js";
@@ -258,7 +258,7 @@ Promise.all([
       title: "\u{1F4D0} Reporte matem\xE1tico FEM"
     }).on("click", () => {
       s && G(async () => {
-        const { openMathReport: t } = await import("./mathReport-C5yxwFMH.js");
+        const { openMathReport: t } = await import("./mathReport-CtJXul11.js");
         return {
           openMathReport: t
         };
