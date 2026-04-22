@@ -24,9 +24,9 @@ function j(a) {
   const m = ($) => Math.round(255 * $).toString(16).padStart(2, "0");
   return `#${m(t)}${m(e)}${m(l)}`;
 }
-function w(a, n, t, e, l, m, $, x = 420, h = 280) {
+function w(a, n, t, e, l, m, $, b = 420, h = 280) {
   if (!a.length) return `<p><i>No data for "${m}"</i></p>`;
-  const p = Math.min(...a.map((v) => v.v)), r = Math.max(...a.map((v) => v.v)), f = r - p || 1, o = 30, b = (x - 2 * o) / n, y = (h - 2 * o - 30) / t, u = Math.min(b, y), s = n * u, i = t * u, d = e, _ = l, M = s / d, k = i / _;
+  const p = Math.min(...a.map((v) => v.v)), r = Math.max(...a.map((v) => v.v)), f = r - p || 1, o = 30, x = (b - 2 * o) / n, y = (h - 2 * o - 30) / t, u = Math.min(x, y), s = n * u, i = t * u, d = e, _ = l, M = s / d, k = i / _;
   let z = "";
   for (let v = 0; v < _; v++) for (let D = 0; D < d; D++) {
     const O = (D + 0.5) / d * n, X = (v + 0.5) / _ * t;
@@ -56,7 +56,7 @@ function w(a, n, t, e, l, m, $, x = 420, h = 280) {
     <text x="${o - 18}" y="${o + i / 2}" font-size="11" text-anchor="middle" fill="#ddd" transform="rotate(-90 ${o - 18} ${o + i / 2})">y (m)</text>
     <text x="${o}" y="${o - 8}" font-size="11" fill="#d4af37" font-weight="bold">${m}</text>
   `;
-  return `<svg width="${x}" height="${h}" style="background:#111;border:1px solid #333;border-radius:4px;">
+  return `<svg width="${b}" height="${h}" style="background:#111;border:1px solid #333;border-radius:4px;">
     ${z}
     <rect x="${o}" y="${o}" width="${s}" height="${i}" fill="none" stroke="#666" stroke-width="1"/>
     ${c}
@@ -65,9 +65,9 @@ function w(a, n, t, e, l, m, $, x = 420, h = 280) {
 }
 function g(a, n, t, e, l, m = 420, $ = 180) {
   if (!a.length) return "";
-  const x = Math.max(...t === "x" ? a.map((c) => c.y) : a.map((c) => c.x)), h = x / 2, p = x * 0.15, r = a.filter((c) => t === "x" ? Math.abs(c.y - h) < p : Math.abs(c.x - h) < p).map((c) => ({ p: t === "x" ? c.x : c.y, v: c.v })).sort((c, P) => c.p - P.p);
+  const b = Math.max(...t === "x" ? a.map((c) => c.y) : a.map((c) => c.x)), h = b / 2, p = b * 0.15, r = a.filter((c) => t === "x" ? Math.abs(c.y - h) < p : Math.abs(c.x - h) < p).map((c) => ({ p: t === "x" ? c.x : c.y, v: c.v })).sort((c, P) => c.p - P.p);
   if (r.length < 2) return "";
-  const f = Math.min(...r.map((c) => c.v)), o = Math.max(...r.map((c) => c.v)), b = Math.min(0, f), y = Math.max(0, o), u = y - b || 1, s = 40, i = m - 2 * s, d = $ - 2 * s - 10, _ = (c) => s + c / n * i, M = (c) => s + d - (c - b) / u * d, k = M(0);
+  const f = Math.min(...r.map((c) => c.v)), o = Math.max(...r.map((c) => c.v)), x = Math.min(0, f), y = Math.max(0, o), u = y - x || 1, s = 40, i = m - 2 * s, d = $ - 2 * s - 10, _ = (c) => s + c / n * i, M = (c) => s + d - (c - x) / u * d, k = M(0);
   let z = `${_(r[0].p).toFixed(1)},${k.toFixed(1)} `;
   r.forEach((c) => z += `${_(c.p).toFixed(1)},${M(c.v).toFixed(1)} `), z += `${_(r[r.length - 1].p).toFixed(1)},${k.toFixed(1)}`;
   const q = `
@@ -79,7 +79,7 @@ function g(a, n, t, e, l, m = 420, $ = 180) {
     <line x1="${s}" y1="${k.toFixed(1)}" x2="${s + i}" y2="${k.toFixed(1)}" stroke="#888" stroke-width="1" stroke-dasharray="3,3"/>
     <text x="${s + i + 3}" y="${(k + 3).toFixed(1)}" font-size="9" fill="#aaa">0 (undeformed)</text>
     <text x="${s - 5}" y="${s + 5}" font-size="10" text-anchor="end" fill="#aaa">${y.toFixed(2)}</text>
-    <text x="${s - 5}" y="${s + d + 3}" font-size="10" text-anchor="end" fill="#aaa">${b.toFixed(2)}</text>
+    <text x="${s - 5}" y="${s + d + 3}" font-size="10" text-anchor="end" fill="#aaa">${x.toFixed(2)}</text>
   `, F = f < 0 ? "#e74c3c" : "#3498db";
   return `<svg width="${m}" height="${$}" style="background:#111;border:1px solid #333;border-radius:4px;">
     <polygon points="${z}" fill="${F}" fill-opacity="0.35" stroke="${F}" stroke-width="2"/>
@@ -91,17 +91,17 @@ function T(a, n, t = "pressure", e = false) {
   var _a, _b, _c, _d;
   const l = (_b = (_a = n == null ? void 0 : n.analyzeOutputs) == null ? void 0 : _a.rawVal) == null ? void 0 : _b[t], m = (_c = n == null ? void 0 : n.nodes) == null ? void 0 : _c.rawVal, $ = (_d = n == null ? void 0 : n.elements) == null ? void 0 : _d.rawVal;
   if (!l || !m || !$) return [];
-  const x = /* @__PURE__ */ new Map();
+  const b = /* @__PURE__ */ new Map();
   $.forEach((p, r) => {
     if (p.length !== 4) return;
     const f = l.get(r);
-    f && p.forEach((o, b) => {
-      const y = x.get(o) || { sum: 0, count: 0 }, u = f[b] ?? 0;
-      y.sum += e ? u : Math.abs(u), y.count += 1, x.set(o, y);
+    f && p.forEach((o, x) => {
+      const y = b.get(o) || { sum: 0, count: 0 }, u = f[x] ?? 0;
+      y.sum += e ? u : Math.abs(u), y.count += 1, b.set(o, y);
     });
   });
   const h = [];
-  return x.forEach((p, r) => {
+  return b.forEach((p, r) => {
     const f = m[r];
     f && h.push({ x: f[0], y: f[1], v: p.count > 0 ? p.sum / p.count : 0 });
   }), h;
@@ -113,13 +113,13 @@ function L(a, n, t = "main") {
   const l = (_e = n == null ? void 0 : n.nodes) == null ? void 0 : _e.rawVal;
   if (!e || !l) return [];
   const m = [];
-  return e.forEach(($, x) => {
-    const h = l[x];
+  return e.forEach(($, b) => {
+    const h = l[b];
     !h || h[2] !== 0 || m.push({ x: h[0], y: h[1], v: 1e3 * ($[2] ?? 0) });
   }), m;
 }
 function I(a, n) {
-  const t = a.Lz ?? 1.5, e = a.Bz ?? 1.5, l = a.tz ?? 0.3, m = a.bc ?? 0.4, $ = a.q_adm ?? 10, x = a.ks_factor ?? 10.5, h = a.ks ?? 1030, p = a.P_simple ?? 20, r = a.Mx_simple ?? 0.5, f = a.My_simple ?? -0.5, o = 22800, b = 0.2, y = o * 1e3 * Math.pow(l, 3) / (12 * (1 - b * b)), u = y / (h * Math.pow(t, 4)), s = u > 1 ? "RIGID" : "FLEXIBLE";
+  const t = a.Lz ?? 1.5, e = a.Bz ?? 1.5, l = a.tz ?? 0.3, m = a.bc ?? 0.4, $ = a.q_adm ?? 10, b = a.ks_factor ?? 10.5, h = a.ks ?? 1030, p = a.P_simple ?? 20, r = a.Mx_simple ?? 0.5, f = a.My_simple ?? -0.5, o = 22800, x = 0.2, y = o * 1e3 * Math.pow(l, 3) / (12 * (1 - x * x)), u = y / (h * Math.pow(t, 4)), s = u > 1 ? "RIGID" : "FLEXIBLE";
   return [{ title: "1. Theory \u2014 Thick plate (Mindlin-Reissner) on Winkler foundation", html: `
 <p>The isolated footing is modelled as a <b>Mindlin-Reissner plate</b>
 (Shell Thick) resting on a <b>Winkler foundation</b> (bed of independent
@@ -141,17 +141,17 @@ deformation \u2014 valid for <span class="math">$t/L \\geq 0.05$</span>. In our 
 <tr><td>Thickness</td><td class="math">$t$</td><td>${l.toFixed(2)}</td><td>m</td></tr>
 <tr><td>Column side</td><td class="math">$b_c$</td><td>${m.toFixed(2)}</td><td>m</td></tr>
 <tr><td>Elastic modulus</td><td class="math">$E_c$</td><td>${o.toLocaleString()}</td><td>MPa</td></tr>
-<tr><td>Poisson ratio</td><td class="math">$\\nu$</td><td>${b}</td><td>\u2014</td></tr>
+<tr><td>Poisson ratio</td><td class="math">$\\nu$</td><td>${x}</td><td>\u2014</td></tr>
 </table>
 
 <p>Plate flexural rigidity:</p>
 
-<p class="math">$$D = \\frac{E \\cdot t^3}{12(1-\\nu^2)} = \\frac{${(o * 1e3).toLocaleString()} \\cdot ${l.toFixed(2)}^3}{12(1-${b}^2)} = ${y.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
+<p class="math">$$D = \\frac{E \\cdot t^3}{12(1-\\nu^2)} = \\frac{${(o * 1e3).toLocaleString()} \\cdot ${l.toFixed(2)}^3}{12(1-${x}^2)} = ${y.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
       ` }, { title: "3. Winkler subgrade", html: `
 <p>The modulus of subgrade reaction <span class="math">$k_s$</span> is estimated
 via the Bowles correlation from the allowable pressure:</p>
 
-<p class="math">$$k_s = k_{factor} \\cdot q_{adm} \\cdot g = ${x} \\cdot ${$} \\cdot 9.807 = ${h.toFixed(0)} \\ \\text{kN/m}^3$$</p>
+<p class="math">$$k_s = k_{factor} \\cdot q_{adm} \\cdot g = ${b} \\cdot ${$} \\cdot 9.807 = ${h.toFixed(0)} \\ \\text{kN/m}^3$$</p>
 
 <p><b>Biot number</b> \u2014 relative plate/soil stiffness:</p>
 
@@ -254,9 +254,14 @@ ${u > 1 ? "behaves rigidly \u2014 the plan distribution is nearly linear (Meyerh
 <p>Response when <b>only the axial load</b>
 <span class="math">$P = ${p.toFixed(2)}$</span> tonf is applied
 (<span class="math">$M_x = M_y = 0$</span>). The distribution is symmetric
-about both axes. For a rigid plate this would be uniform
-<span class="math">$P/A$</span>; for a flexible plate the pressure
-concentrates under the column (nodal point load):</p>
+about both axes.</p>
+<p>To avoid the artificial concentration that a single-node point load
+would create, P is <b>distributed equally over the plate nodes within the
+column footprint</b> (<span class="math">$b_c \\times b_c$</span> centered
+at the column). For a rigid plate (<span class="math">$k_r \\gg 1$</span>)
+the pressure should be almost uniform
+<span class="math">$\\sigma \\approx P/A$</span>; for a flexible plate the
+pressure concentrates over the column footprint.</p>
 
 <h4 style="color:#d4af37; margin-top:14px;">Contact pressure \u03C3</h4>
 <div style="text-align:center; margin: 10px 0;">
@@ -379,7 +384,7 @@ ${g(i, e, "y", "w along Y (mm, signed)", "mm", 460, 200)}
   })() }];
 }
 function Z(a, n) {
-  const t = a.a ?? 6, e = a.b ?? 4, l = a.t ?? 0.1, m = a.q ?? 10, $ = a.E_MPa ?? 35e3, x = a.nu ?? 0.15, h = $ * 1e3, p = h / (2 * (1 + x)), r = h * Math.pow(l, 3) / (12 * (1 - x * x)), f = 772e-5, o = f * m * Math.pow(e, 4) / r * 1e3;
+  const t = a.a ?? 6, e = a.b ?? 4, l = a.t ?? 0.1, m = a.q ?? 10, $ = a.E_MPa ?? 35e3, b = a.nu ?? 0.15, h = $ * 1e3, p = h / (2 * (1 + b)), r = h * Math.pow(l, 3) / (12 * (1 - b * b)), f = 772e-5, o = f * m * Math.pow(e, 4) / r * 1e3;
   return [{ title: "1. Theory \u2014 Mindlin-Reissner thick plate", html: `
 <p>The rectangular slab is modelled as a <b>Mindlin-Reissner plate</b>
 (Shell Thick), simply supported along all four edges and subjected to a
@@ -400,13 +405,13 @@ uniform distributed load <span class="math">$q$</span>.</p>
 <tr><td>Thickness</td><td class="math">$t$</td><td>${l.toFixed(3)}</td><td>m</td></tr>
 <tr><td>Uniform load</td><td class="math">$q$</td><td>${m.toFixed(1)}</td><td>kN/m\xB2</td></tr>
 <tr><td>Elastic modulus</td><td class="math">$E$</td><td>${$.toLocaleString()}</td><td>MPa</td></tr>
-<tr><td>Poisson</td><td class="math">$\\nu$</td><td>${x.toFixed(2)}</td><td>\u2014</td></tr>
+<tr><td>Poisson</td><td class="math">$\\nu$</td><td>${b.toFixed(2)}</td><td>\u2014</td></tr>
 <tr><td>Shear modulus</td><td class="math">$G$</td><td>${(p / 1e3).toFixed(0)}</td><td>MPa</td></tr>
 <tr><td>Shear correction</td><td class="math">$\\kappa_s$</td><td>5/6</td><td>\u2014</td></tr>
 </table>
 
 <p>Flexural rigidity:</p>
-<p class="math">$$D = \\frac{E t^3}{12(1-\\nu^2)} = \\frac{${h.toLocaleString()} \\cdot ${l.toFixed(3)}^3}{12(1-${x}^2)} = ${r.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
+<p class="math">$$D = \\frac{E t^3}{12(1-\\nu^2)} = \\frac{${h.toLocaleString()} \\cdot ${l.toFixed(3)}^3}{12(1-${b}^2)} = ${r.toFixed(1)} \\ \\text{kN}\\cdot\\text{m}$$</p>
       ` }, { title: "3. Bilinear Q4 shape functions", html: `
 <p>Natural coordinates <span class="math">$(\\xi, \\eta) \\in [-1, +1]$</span>:</p>
 <p class="math">$$N_i(\\xi,\\eta) = \\tfrac{1}{4}(1 + \\xi_i \\xi)(1 + \\eta_i \\eta), \\quad i=1,\\dots,4$$</p>
@@ -476,15 +481,15 @@ recovered from the bending strain matrix:</p>
 <p>The transverse shear forces are similarly recovered:</p>
 <p class="math">$$\\begin{bmatrix} Q_x \\\\ Q_y \\end{bmatrix} = \\mathbf{D}_s \\cdot \\mathbf{B}_s \\cdot \\mathbf{Z}_e$$</p>
       ` }, { title: "11. Plan view color map \u2014 deflection w (mm, signed)", html: (() => {
-    const b = L(a, n);
-    return b.length ? `
+    const x = L(a, n);
+    return x.length ? `
 <p>2D plan view (top-down) of the vertical deflection
 <span class="math">$w$</span> in mm using the FEM sign convention
 (<b>negative = downward</b>). The minimum (most negative) value
-<span class="math">$w_{min} = ${Math.min(...b.map((u) => u.v)).toFixed(3)}$</span> mm should occur
+<span class="math">$w_{min} = ${Math.min(...x.map((u) => u.v)).toFixed(3)}$</span> mm should occur
 at the plate center for a simply supported plate under uniform pressure:</p>
 <div style="text-align:center; margin: 10px 0;">
-${w(b, t, e, 50, 30, "w plan view (mm, signed)", "mm", 520, 340)}
+${w(x, t, e, 50, 30, "w plan view (mm, signed)", "mm", 520, 340)}
 </div>
 <p><b>Analytical benchmark</b> (Kirchhoff Navier):
 <span class="math">$w_{max}^{downward} \\approx ${o.toFixed(3)}$</span> mm,
@@ -492,16 +497,16 @@ so FEM should give <span class="math">$w_{min}^{FEM} \\approx -${o.toFixed(3)}$<
 Mindlin typically gives slightly larger magnitude due to shear deformation.</p>
         ` : "<p><i>No deflection data. Adjust any parameter to rebuild.</i></p>";
   })() }, { title: "12. Lateral elevations \u2014 X and Y cross-sections (w signed)", html: (() => {
-    const b = L(a, n);
-    return b.length ? `
+    const x = L(a, n);
+    return x.length ? `
 <p>Cross-section of the vertical deflection along the central axes.
 With downward load, the curve should <b>dip below zero</b> (negative
 values) at the center and return to 0 at the simply supported edges:</p>
 <div style="text-align:center; margin: 10px 0;">
-${g(b, t, "x", "w along X (through y = b/2) \u2014 mm, signed", "mm", 500, 220)}
+${g(x, t, "x", "w along X (through y = b/2) \u2014 mm, signed", "mm", 500, 220)}
 </div>
 <div style="text-align:center; margin: 10px 0;">
-${g(b, e, "y", "w along Y (through x = a/2) \u2014 mm, signed", "mm", 500, 220)}
+${g(x, e, "y", "w along Y (through x = a/2) \u2014 mm, signed", "mm", 500, 220)}
 </div>
         ` : "<p><i>No cross-section data.</i></p>";
   })() }];
@@ -598,8 +603,8 @@ async function tt(a, n, t, e) {
   document.getElementById("mr-close").onclick = $, document.getElementById("mr-backdrop").onclick = $, window.addEventListener("keydown", function p(r) {
     r.key === "Escape" && ($(), window.removeEventListener("keydown", p));
   });
-  const x = document.getElementById("mr-body"), h = window.renderMathInElement;
-  h && h(x, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
+  const b = document.getElementById("mr-body"), h = window.renderMathInElement;
+  h && h(b, { delimiters: [{ left: "$$", right: "$$", display: true }, { left: "$", right: "$", display: false }], throwOnError: false });
 }
 export {
   G as buildMathReport,
